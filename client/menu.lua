@@ -1,73 +1,60 @@
 RegisterNetEvent("rsg-questsystem:client:DailyMissionMenu", function()
-    local DailyMissionMenu = {
-        {
-            header = "📒 Daily Missions",
-            isMenuHeader = true
-        },
-    }
-     
+
+    local DailyMissionMenu = {}
+
     DailyMissionMenu[#DailyMissionMenu+1] = {
-        header = "🗞 Get Daily Quests",
-        txt = "Daily quests will reset when a new day passes",
-        params = { 
-            event = "rsg-questsystem:client:TakeDailyMission", 
-        }
-        
+        title = "Get Daily Quests",
+        description = "Daily quests will reset when a new day passes",
+        icon = 'fa-solid fa-eye',
+        event = "rsg-questsystem:client:TakeDailyMission",
+        arrow = true
     }
 
     DailyMissionMenu[#DailyMissionMenu+1] = {
-        header = '🛎 Checking process',
-        txt = "Check your current task progress",
-        params = { 
-            event = "rsg-questsystem:client:CheckProgress",
-            args = "dailymission", 
-        }
-        
+        title = 'Checking process',
+        description = "Check your current task progress",
+        event = "rsg-questsystem:client:CheckProgress",
+        args = {"dailymission"},
+        arrow = true
     }
-    
-    DailyMissionMenu[#DailyMissionMenu+1] = {
-        header = "⬅ Exit",
-        txt = "",
-        params = {
-            event = "rsg-menu:client:closeMenu",
-        }
-    }
-    exports['rsg-menu']:openMenu(DailyMissionMenu)
+
+    lib.registerContext({
+        id = 'daily_missions_menu',
+        title = 'Daily Missions',
+        position = 'top-right',
+        options = DailyMissionMenu
+    })
+
+    lib.showContext('daily_missions_menu')
 end)
 
 RegisterNetEvent("rsg-questsystem:client:HourlyMissionMenu", function()
-    local HourlyMissionMenu = {
-        {
-            header = "📘 Hourly Quests",
-            isMenuHeader = true
-        },
-    }
-     
+
+    local HourlyMissionMenu = {}
+
     HourlyMissionMenu[#HourlyMissionMenu+1] = {
-        header = "🗞 Get Hourly Quests",
-        txt = "Daily quests will be reset every hour",
-        params = { 
-            event = "rsg-questsystem:client:TakeHourlyMission", 
-        }
-        
+        title = "Get Hourly Quests",
+        description = "Daily quests will be reset every hour",
+        icon = 'fa-solid fa-eye',
+        event = "rsg-questsystem:client:TakeHourlyMission",
+        arrow = true
     }
 
     HourlyMissionMenu[#HourlyMissionMenu+1] = {
-        header = '🛎 Checking process',
-        txt = "Check your current task progress",
-        params = { 
-            event = "rsg-questsystem:client:CheckProgress",
-            args = "hourlymission", 
-        }
-        
+        title = 'Checking process',
+        description = "Check your current task progress",
+        event = "rsg-questsystem:client:CheckProgress",
+        args = {"hourlymission"},
+        arrow = true
     }
-    
-    HourlyMissionMenu[#HourlyMissionMenu+1] = {
-        header = "⬅ Exit",
-        txt = "",
-        params = {
-            event = "rsg-menu:client:closeMenu",
-        }
-    }
-    exports['rsg-menu']:openMenu(HourlyMissionMenu)
+
+    lib.registerContext({
+        id = 'hourly_missions_menu',
+        title = 'Hourly Quests',
+        position = 'top-right',
+        options = HourlyMissionMenu
+    })
+
+    lib.showContext('hourly_missions_menu')
+
 end)
