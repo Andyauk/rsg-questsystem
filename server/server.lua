@@ -58,11 +58,11 @@ RegisterNetEvent("rsg-questsystem:server:TakeDailyMission", function(mission)
     local Player = RSGCore.Functions.GetPlayer(src)
     local time_table = os.date ("*t")
     if tonumber(Player.PlayerData.metadata["dailymission_timestamp"]) ~= tonumber(time_table.day) then 
-        TriggerClientEvent('RSGCore:Notify', src, "You have received the hourly quest called "..Config.Daily_Mission[mission].name.." This mission requires you "..Config.Daily_Mission[mission].label.."", "success") 
-        Player.Functions.SetMetaData("dailymission_timestamp", time_table.day)
+        TriggerClientEvent('ox_lib:notify', source, {title = "You have received the hourly quest called "..Config.Daily_Mission[mission].name, description = "This mission requires you "..Config.Daily_Mission[mission].label.."", type = "success" })
+	Player.Functions.SetMetaData("dailymission_timestamp", time_table.day)
         Player.Functions.SetMetaData("dailymission", mission)
     else 
-        TriggerClientEvent('RSGCore:Notify', src, "You have already received the day's quest, please wait for a new day", "error") 
+        TriggerClientEvent('ox_lib:notify', source, {title = 'Wait for a new day', description = 'You have already received the days quest', type = 'error' })
     end
 end)
 
@@ -72,11 +72,11 @@ RegisterNetEvent("rsg-questsystem:server:TakeHourlyMission", function(mission)
     local time_table = os.date ("*t")
     
     if Player.PlayerData.metadata["hourlymission_timestamp"] ~= time_table.hour then
-        TriggerClientEvent('RSGCore:Notify', src, "You have received the hourly quest called "..Config.Hourly_Mission[mission].name.." This mission requires you "..Config.Hourly_Mission[mission].label.."", "success") 
-        Player.Functions.SetMetaData("hourlymission_timestamp", time_table.hour)
+        TriggerClientEvent('ox_lib:notify', source, {title = "You have received the hourly quest called "..Config.Hourly_Mission[mission].name, description = " This mission requires you "..Config.Hourly_Mission[mission].label.."", type = 'success' })
+	Player.Functions.SetMetaData("hourlymission_timestamp", time_table.hour)
         Player.Functions.SetMetaData("hourlymission", mission)
     else 
-        TriggerClientEvent('RSGCore:Notify', src, "You have accepted the quest now, please wait a little longer", "error") 
+        TriggerClientEvent('ox_lib:notify', source, {title = 'Wait a little longer', description = 'You have accepted the quest now', type = 'error' })
     end
 end)
 
@@ -121,8 +121,7 @@ RegisterNetEvent("rsg-questsystem:server:CheckProgress", function(type, required
             end 
             reward_money_text = reward_money_text.. " - "  ..money_label..": $"..v
         end
-        
-        TriggerClientEvent('RSGCore:Notify', source, "You have now collected: "..text.." Reward "..reward_item_text..""..reward_money_text, "error")
+        TriggerClientEvent('ox_lib:notify', source, {title = "You have now collected: "..text, description = " Reward "..reward_item_text..""..reward_money_text, type = 'error' })
     end
 end)
 
@@ -170,7 +169,7 @@ function completeMission(source, type, RewardItems, RewardMoney)
         end
     end
     
-    TriggerClientEvent('RSGCore:Notify', source, "Congratulations on completing the quest and getting the reward.", "success")
+    TriggerClientEvent('ox_lib:notify', source, {title = 'Congratulations', description = 'on completing the quest and getting the reward', type = 'success' })
     
 end
 
@@ -184,13 +183,13 @@ RSGCore.Commands.Add("resetmission", "Reset player's date/time quest", {{name = 
             Player.Functions.SetMetaData("hourlymission", 0)
             Player.Functions.SetMetaData("dailymission_timestamp", 0)
             Player.Functions.SetMetaData("hourlymission_timestamp", 0)
-            TriggerClientEvent('RSGCore:Notify', src, "Has reset the mission of "..Player.PlayerData.source, "success")
+            TriggerClientEvent('ox_lib:notify', src, {title = 'Has reset the mission', description = "of "..Player.PlayerData.source, type = 'success' })
         else
-            TriggerClientEvent('RSGCore:Notify', src, "Players not online", "error")
+            TriggerClientEvent('ox_lib:notify', src, {title = 'Error', description = "Players not online", type = 'error' })
         end
     else
         local Player = RSGCore.Functions.GetPlayer(src)
-        TriggerClientEvent('RSGCore:Notify', src, "Reset your own quest", "success")
+        TriggerClientEvent('ox_lib:notify', src, {title = 'Reset', description = "your own quest", type = 'success' })
         Player.Functions.SetMetaData("dailymission", 0)
         Player.Functions.SetMetaData("hourlymission", 0)
         Player.Functions.SetMetaData("dailymission_timestamp", 0)
