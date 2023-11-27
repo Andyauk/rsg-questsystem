@@ -7,14 +7,31 @@ CanTakeHourlyMission = false
 CreateThread(function()
     for i = 1, #Config.QuestNPC do
         local questnpc = Config.QuestNPC[i]
-
-        exports['rsg-core']:createPrompt(questnpc.prompt, questnpc.promptcoords, RSGCore.Shared.Keybinds['J'], questnpc.name,
-        {
-            type = 'client',
-            event = 'rsg-questsystem:client:CheckMissionMenu',
-            args = {questnpc.questtype},
-        })
-
+	if not questnpc.showtarget then
+		exports['rsg-core']:createPrompt(questnpc.prompt, questnpc.promptcoords, RSGCore.Shared.Keybinds[Config.Key], questnpc.name,
+		{
+		    type = 'client',
+		    event = 'rsg-questsystem:client:CheckMissionMenu',
+		    args = {questnpc.questtype},
+		})
+	else
+            exports['rsg-target']:AddCircleZone(questnpc.prompt, questnpc.promptcoords, 2, {
+                name = questnpc.prompt,
+                debugPoly = false,
+            }, {
+                options = {
+                    {
+                        type = "client",
+                        action = function()
+                            TriggerEvent('rsg-questsystem:client:CheckMissionMenu', questnpc.questtype)
+                        end,
+                        icon = "fas fa-comments-dollar",
+                        label = questnpc.name,
+                    },
+                },
+                distance = 3,
+            })
+        end
         createdEntries[#createdEntries + 1] = {type = "PROMPT", handle = questnpc.prompt}
 
         if questnpc.showblip then
@@ -58,7 +75,7 @@ RegisterNetEvent("rsg-questsystem:client:TakeDailyMission", function()
             end
         end, "dailymission")
     else 
-        RSGCore.Functions.Notify("You have already received a quest, you can check the progress")
+        lib.notify({ title = 'You have already received a quest', description = 'you can check the progress', type = 'inform' })
     end 
 end)
 
@@ -72,7 +89,7 @@ RegisterNetEvent("rsg-questsystem:client:TakeHourlyMission", function()
             end
         end, "hourlymission")
     else 
-        RSGCore.Functions.Notify("You have already received a quest, you can check the progress")
+        lib.notify({ title = 'You have already received a quest', description = 'you can check the progress', type = 'inform' })
     end 
 end)
 
