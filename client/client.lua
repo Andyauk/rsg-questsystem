@@ -75,7 +75,7 @@ RegisterNetEvent("rsg-questsystem:client:TakeDailyMission", function()
             end
         end, "dailymission")
     else 
-        lib.notify({ title = 'You have already received a quest', description = 'you can check the progress', type = 'inform' })
+        lib.notify({ title = 'You have already received the day\'s quest, please wait for a new day', type = 'inform', duration = 5000 })
     end 
 end)
 
@@ -89,7 +89,7 @@ RegisterNetEvent("rsg-questsystem:client:TakeHourlyMission", function()
             end
         end, "hourlymission")
     else 
-        lib.notify({ title = 'You have already received a quest', description = 'you can check the progress', type = 'inform' })
+        lib.notify({ title = 'You have accepted the quest now, please wait a little longer', type = 'inform', duration = 5000 })
     end 
 end)
 
