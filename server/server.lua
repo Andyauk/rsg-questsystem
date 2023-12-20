@@ -77,7 +77,7 @@ RegisterNetEvent("rsg-questsystem:server:TakeHourlyMission", function(mission)
 	Player.Functions.SetMetaData("hourlymission_timestamp", time_table.hour)
         Player.Functions.SetMetaData("hourlymission", mission)
     else 
-        TriggerClientEvent('ox_lib:notify', src, {title = '"You have accepted the quest now, please wait a little longer', type = 'error', duration = 5000 })
+        TriggerClientEvent('ox_lib:notify', src, {title = 'You have already received the hours\'s quest, please wait for a new hour', type = 'error', duration = 5000 })
     end
 end)
 
