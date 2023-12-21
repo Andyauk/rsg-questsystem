@@ -58,7 +58,7 @@ RegisterNetEvent("rsg-questsystem:server:TakeDailyMission", function(mission)
     local Player = RSGCore.Functions.GetPlayer(src)
     local time_table = os.date ("*t")
     if tonumber(Player.PlayerData.metadata["dailymission_timestamp"]) ~= tonumber(time_table.day) then
-        TriggerClientEvent('ox_lib:notify', src, {title = "You have received the hourly quest called "..Config.Daily_Mission[mission].name.." This mission requires you "..Config.Daily_Mission[mission].label.."", type = 'success', duration = 5000 })
+        TriggerClientEvent('ox_lib:notify', src, {title = "You have received the daily quest called  "..Config.Daily_Mission[mission].name.." This mission requires you "..Config.Daily_Mission[mission].label.."", type = 'success', duration = 5000 })
         Player.Functions.SetMetaData("dailymission_timestamp", time_table.day)
         Player.Functions.SetMetaData("dailymission", mission)
     else
