@@ -1,13 +1,17 @@
 Config = {}
 
+--------------------------------------------
 -- settings
+--------------------------------------------
 Config.DistanceSpawn = 20.0 -- Distance before spawning/despawning the ped. (GTA Units.)
 Config.FadeIn = true
 Config.Key = 'J'
 
+--------------------------------------------
 -- prompt/npc/blip settings
-Config.QuestNPC =
-{
+--------------------------------------------
+Config.QuestNPC = {
+
     {    --valentine hourly
         name            = 'Check Hourly Quest',
         prompt          = 'valquesthourly',
@@ -36,7 +40,9 @@ Config.QuestNPC =
     },
 }
 
--- HOURLY TASKS
+--------------------------------------------
+-- hourly missions
+--------------------------------------------
 Config.Hourly_Mission = {
     {
         name = "Hardworking Farmer",
@@ -55,7 +61,9 @@ Config.Hourly_Mission = {
     },
 }
 
--- DAILY MISSION
+--------------------------------------------
+-- daily missions
+--------------------------------------------
 Config.Daily_Mission = {
     {
         name = "Feed the People",
